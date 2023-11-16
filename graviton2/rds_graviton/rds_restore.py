@@ -8,6 +8,7 @@ import aws_cdk.aws_ssm as ssm
 import os
 
 c9_ip = os.environ["C9_HOSTNAME"] + '/32'
+default_vpc_cidr = os.environ["DefaultRouteCidr"] 
 
 
 class CdkRdsRestoreStack(cdk.Stack):
@@ -39,7 +40,6 @@ class CdkRdsRestoreStack(cdk.Stack):
                                                  parameter_group_name="default.mysql8.0"
                                              )
                                              )
-        
-        g2_db_mysql8.connections.allow_default_port_from(ec2.Peer.ipv4(c9_ip), "Cloud9 MySQL Access")
+        g2_db_mysql8.connections.allow_default_port_from(ec2.Peer.ipv4(default_vpc_cidr), "Cloud9 MySQL Access")
         cdk.CfnOutput( self, "G2MySQL8RDSInstanceId", value = g2_db_mysql8.instance_identifier)
         cdk.CfnOutput( self, "MySQL8RSecurityGroup", value = MySQL8Rsecgroup.security_group_id)	

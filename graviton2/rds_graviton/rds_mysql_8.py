@@ -7,6 +7,7 @@ import aws_cdk.aws_rds as rds
 import os
 
 c9_ip = os.environ["C9_HOSTNAME"] + '/32'
+default_vpc_cidr = os.environ["DefaultRouteCidr"] 
 
 class CdkRds8Stack(cdk.Stack):
 
@@ -35,9 +36,7 @@ class CdkRds8Stack(cdk.Stack):
                                                  parameter_group_name="default.mysql8.0"
                                              )
                                              )
-        db_mysql8.connections.allow_default_port_from(ec2.Peer.ipv4(c9_ip), "Cloud9 MySQL Access")
+        db_mysql8.connections.allow_default_port_from(ec2.Peer.ipv4(default_vpc_cidr), "Cloud9 MySQL Access")
 
         cdk.CfnOutput( self, "MySQL8RDSInstanceId", value = db_mysql8.instance_identifier)
         cdk.CfnOutput( self, "MySQL8SecretArn", value = db_mysql8.secret.secret_arn)
-        cdk.CfnOutput( self, "MySQL8SecurityGroup", value = MySQL8secgroup.security_group_id)
-
