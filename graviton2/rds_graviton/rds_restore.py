@@ -7,7 +7,6 @@ import aws_cdk.aws_rds as rds
 import aws_cdk.aws_ssm as ssm
 import os
 
-c9_ip = os.environ["C9_HOSTNAME"] + '/32'
 default_vpc_cidr = os.environ["DefaultRouteCidr"] 
 
 

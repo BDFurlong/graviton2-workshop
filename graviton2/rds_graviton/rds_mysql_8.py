@@ -6,7 +6,6 @@ import aws_cdk.aws_ec2 as ec2
 import aws_cdk.aws_rds as rds
 import os
 
-c9_ip = os.environ["C9_HOSTNAME"] + '/32'
 default_vpc_cidr = os.environ["DefaultRouteCidr"] 
 
 class CdkRds8Stack(cdk.Stack):
