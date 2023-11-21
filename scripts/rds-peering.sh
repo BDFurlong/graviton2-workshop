@@ -13,6 +13,7 @@ echo $GravitonRouteTableID
 
 ### VPC CIDRs
 export DefaultRouteCidr=$(aws ec2 describe-vpcs --filters "Name=vpc-id,Values=${DefaultVpcId}" --query "Vpcs[].CidrBlock" --output json | jq -r '.[0]')
+export GravitonRouteCidr=$(aws ec2 describe-vpcs --filters "Name=vpc-id,Values=${GravitonVpcId}" --query "Vpcs[].CidrBlock" --output json | jq -r '.[0]')
 echo $DefaultRouteCidr
 echo $GravitonRouteCidr
 
